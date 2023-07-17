@@ -1,12 +1,46 @@
-import { Image, SafeAreaView, ScrollView, StatusBar, Text, TextInput, View } from 'react-native';
+import {
+  Image,
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 import {
   ChevronDownIcon,
   UserIcon,
   AdjustmentsVerticalIcon,
-  MagnifyingGlassIcon
- } from 'react-native-heroicons/outline'
+  MagnifyingGlassIcon,
+} from 'react-native-heroicons/outline';
+import { Categories } from '../components/Categories';
+import { FeaturedRow } from '../components/FeaturedRow';
+import { useEffect, useState } from 'react';
+import { client } from '../../sanity';
+import { Featured } from '../../typings';
 
 export function Home() {
+  const [featuredCategories, setFeaturedCategories] = useState<Featured[]>([]);
+
+  useEffect(() => {
+    client
+      .fetch(
+        `
+        *[_type=='featured'] {
+          ...,
+          restaurants[]->{
+            ...,
+            dishes[]->,
+            type-> {
+              name
+            }
+          }
+        }
+      `
+      )
+      .then((data) => setFeaturedCategories(data));
+  }, []);
+
   return (
     <SafeAreaView className='bg-white pt-5'>
       <StatusBar />
@@ -36,14 +70,35 @@ export function Home() {
 
       <View className='flex-row items-center space-x-2 pb-2 mx-4'>
         <View className='flex-row space-x-2 bg-gray-200 p-3 flex-1 items-center rounded-md'>
-          <MagnifyingGlassIcon size={20} color='gray' />
-          <TextInput placeholder='Restaurants and cuisines' keyboardType='default' />
+          <MagnifyingGlassIcon
+            size={20}
+            color='gray'
+          />
+          <TextInput
+            placeholder='Restaurants and cuisines'
+            keyboardType='default'
+          />
         </View>
         <AdjustmentsVerticalIcon color='#00CCBB' />
       </View>
 
-      <ScrollView>
-        
+      <ScrollView
+        className='bg-gray-100'
+        contentContainerStyle={{
+          paddingBottom: 100,
+        }}
+      >
+        <Categories />
+
+        {featuredCategories?.map((category) => (
+          <FeaturedRow
+            key={category._id}
+            id={category._id}
+            title={category.name}
+            description={category.short_description}
+            restaurants={category.restaurants}
+          />
+        ))}
       </ScrollView>
     </SafeAreaView>
   );
