@@ -1,20 +1,13 @@
+import 'react-native-gesture-handler';
 import 'react-native-url-polyfill/auto';
-import { Home } from './src/screens/Home';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
-const { Navigator, Screen } = createNativeStackNavigator();
+import { AppRoutes } from './src/routes';
+import { Provider } from 'react-redux';
+import { store } from './store';
 
 export default function App() {
   return (
-    <NavigationContainer>
-    <Navigator>
-      <Screen
-        name='Home'
-        component={Home}
-        options={{ headerShown: false }}
-        />
-    </Navigator>
-        </NavigationContainer>
+    <Provider store={store}>
+      <AppRoutes />
+    </Provider>
   );
 }

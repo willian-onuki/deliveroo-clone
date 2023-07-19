@@ -33,6 +33,20 @@ export function RestaurantCard({
   const navigation = useNavigation();
   return (
     <TouchableOpacity
+      onPress={() =>
+        navigation.navigate('Restaurant', {
+          id,
+          imageUrl,
+          title,
+          rating,
+          genre,
+          address,
+          short_description,
+          dishes,
+          long,
+          lat,
+        })
+      }
       className='bg-white mr-3 shadow-sm'
     >
       <Image
