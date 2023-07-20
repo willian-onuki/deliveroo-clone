@@ -19,6 +19,11 @@ export function StackRoutes() {
         component={Restaurant}
         options={{ headerShown: false }}
       />
+      <Screen
+        name='Basket'
+        component={Basket}
+        options={{ headerShown: false, presentation: 'modal' }}
+      />
     </Navigator>
   );
 }

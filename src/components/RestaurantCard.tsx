@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 export interface RestaurantCardProps {
   id: string;
   imageUrl: string;
-  title: string;
+  name: string;
   rating: number;
   genre: string;
   address: string;
@@ -21,7 +21,7 @@ export interface RestaurantCardProps {
 export function RestaurantCard({
   id,
   imageUrl,
-  title,
+  name,
   rating,
   genre,
   address,
@@ -37,7 +37,7 @@ export function RestaurantCard({
         navigation.navigate('Restaurant', {
           id,
           imageUrl,
-          title,
+          name,
           rating,
           genre,
           address,
@@ -54,7 +54,7 @@ export function RestaurantCard({
         className='h-36 w-64 rounded-sm'
       />
       <View className='px-3 pb-4 '>
-        <Text className='font-bold text-lg pt-2'>{title}</Text>
+        <Text className='font-bold text-lg pt-2'>{name}</Text>
         <View className='flex-row items-center space-x-1'>
           <StarIcon
             color='green'

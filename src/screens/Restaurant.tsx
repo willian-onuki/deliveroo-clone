@@ -6,12 +6,15 @@ import { QuestionMarkCircleIcon } from 'react-native-heroicons/outline';
 import { DishRow } from '../components/DishRow';
 import { urlFor } from '../../sanity';
 import { BasketIcon } from '../components/BasketIcon';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { setRestaurant } from '../features/restaurantSlice';
 
 export function Restaurant() {
   const route = useRoute<RouteProps<'Restaurant'>>();
   const {
     id,
-    title,
+    name,
     imageUrl,
     address,
     dishes,
@@ -21,8 +24,29 @@ export function Restaurant() {
     rating,
     short_description,
   } = route.params;
+
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(
+      setRestaurant({
+        id,
+        name,
+        imageUrl,
+        address,
+        dishes,
+        genre,
+        lat,
+        long,
+        rating,
+        short_description,
+      })
+    );
+  }, [dispatch])
+
   return (
+    <>
+      <BasketIcon/>
       <ScrollView>
         <View className='relative'>
           <Image
@@ -41,7 +65,7 @@ export function Restaurant() {
         </View>
         <View className='bg-white'>
           <View className='px-4'>
-            <Text className='text-3xl font-bold'>{title}</Text>
+            <Text className='text-3xl font-bold'>{name}</Text>
             <View className='flex-row space-x-2 my-1'>
               <View className='flex-row items-center space-x-1'>
                 <StarIcon
@@ -89,10 +113,11 @@ export function Restaurant() {
               name={dish.name}
               description={dish.short_description}
               price={dish.price}
-              image={urlFor(dish.image).url()}
+              image={dish.image}
             />
           ))}
         </View>
       </ScrollView>
+    </>
   );
 }

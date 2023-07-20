@@ -37,7 +37,7 @@ export function FeaturedRow({ id, title, description, restaurants }: Props) {
             key={restaurant._id}
             id={restaurant._id}
             imageUrl={String(urlFor(restaurant.image))}
-            title={restaurant.name}
+            name={restaurant.name}
             rating={restaurant.rating}
             genre={restaurant.type?.name}
             address={restaurant.address}

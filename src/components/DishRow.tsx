@@ -5,13 +5,16 @@ import { MinusCircleIcon, PlusCircleIcon } from 'react-native-heroicons/solid';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { addToBasket, removeFromBasket, selectBasketItems, selectBasketItemsById } from '../features/basketSlice';
 import { RootState } from '../../store';
+import { Image as Image_2 } from 'sanity';
+import { urlFor } from '../../sanity';
+
 
 interface Props {
   id: string;
   name: string;
   description: string;
   price: number;
-  image: string;
+  image: Image_2;
 }
 
 export function DishRow({ id, name, description, price, image }: Props) {
@@ -56,7 +59,7 @@ export function DishRow({ id, name, description, price, image }: Props) {
                 borderWidth: 1,
                 borderColor: '#F3F3F4',
               }}
-              source={{ uri: image }}
+              source={{ uri: urlFor(image).url() }}
               className='h-20 w-20 bg-gray-300 p-4'
             />
           </View>
