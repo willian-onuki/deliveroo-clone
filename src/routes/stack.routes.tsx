@@ -3,6 +3,8 @@ import { RootStackParamList } from '../@types/route';
 import { Home } from '../screens/Home';
 import { Restaurant } from '../screens/Restaurant';
 import { Basket } from '../screens/Basket';
+import { PreparingOrder } from '../screens/PreparingOrder';
+import { Delivery } from '../screens/Delivery';
 
 const { Navigator, Screen } = createStackNavigator<RootStackParamList>();
 
@@ -23,6 +25,16 @@ export function StackRoutes() {
         name='Basket'
         component={Basket}
         options={{ headerShown: false, presentation: 'modal' }}
+      />
+      <Screen
+        name='PreparingOrder'
+        component={PreparingOrder}
+        options={{ headerShown: false }}
+      />
+      <Screen
+        name='Delivery'
+        component={Delivery}
+        options={{ headerShown: false }}
       />
     </Navigator>
   );

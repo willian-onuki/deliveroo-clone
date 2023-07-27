@@ -1,12 +1,23 @@
-import { useNavigation } from "@react-navigation/native";
-import { Image, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
-import { removeFromBasket, selectBasketItems, selectBasketTotal } from "../features/basketSlice";
-import { selectRestaurant } from "../features/restaurantSlice";
-import { useMemo, useState } from "react";
-import { Dish } from "../../typings";
-import { XCircleIcon } from "react-native-heroicons/solid";
-import { urlFor } from "../../sanity";
+import { useNavigation } from '@react-navigation/native';
+import {
+  Image,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  removeFromBasket,
+  selectBasketItems,
+  selectBasketTotal,
+} from '../features/basketSlice';
+import { selectRestaurant } from '../features/restaurantSlice';
+import { useMemo, useState } from 'react';
+import { Dish } from '../../typings';
+import { XCircleIcon } from 'react-native-heroicons/solid';
+import { urlFor } from '../../sanity';
 
 interface GroupedItemsInBasket {
   [key: string]: Dish[];
@@ -20,15 +31,16 @@ export function Basket() {
   const dispatch = useDispatch();
   const deliveryPrice = 5.99;
 
-  const [groupedItemsInBasket, setGroupedItemsInBasket] = useState<GroupedItemsInBasket>({} as GroupedItemsInBasket);
+  const [groupedItemsInBasket, setGroupedItemsInBasket] =
+    useState<GroupedItemsInBasket>({} as GroupedItemsInBasket);
 
   useMemo(() => {
     const groupedItems = items.reduce((acc, item) => {
       (acc[item._id] = acc[item._id] || []).push(item);
       return acc;
-    }, {} as GroupedItemsInBasket)
-    setGroupedItemsInBasket(groupedItems)
-  }, [items])
+    }, {} as GroupedItemsInBasket);
+    setGroupedItemsInBasket(groupedItems);
+  }, [items]);
 
   return (
     <SafeAreaView className='flex-1 bg-white'>
@@ -116,9 +128,14 @@ export function Basket() {
               })}
             </Text>
           </View>
-        <TouchableOpacity className="rounded-lg bg-[#00CCBB] p-4">
-          <Text className="text-center text-white text-lg font-bold">Place Order</Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('PreparingOrder')}
+            className='rounded-lg bg-[#00CCBB] p-4'
+          >
+            <Text className='text-center text-white text-lg font-bold'>
+              Place Order
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
     </SafeAreaView>

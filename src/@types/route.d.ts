@@ -1,13 +1,18 @@
-import { RouteProp } from "@react-navigation/native"
-import { RestaurantCardProps } from "../components/RestaurantCard"
+import { RouteProp } from '@react-navigation/native';
+import { RestaurantCardProps } from '../components/RestaurantCard';
 
 export type RootStackParamList = {
-  Home: undefined,
-  Restaurant: RestaurantCardProps,
-  Basket: undefined,
-}
+  Home: undefined;
+  Restaurant: RestaurantCardProps;
+  Basket: undefined;
+  PreparingOrder: undefined;
+  Delivery: undefined;
+};
 
-export type RouteProps<T extends keyof RootStackParamList> = RouteProp<RootStackParamList, T>
+export type RouteProps<T extends keyof RootStackParamList> = RouteProp<
+  RootStackParamList,
+  T
+>;
 
 declare global {
   namespace ReactNavigation {
